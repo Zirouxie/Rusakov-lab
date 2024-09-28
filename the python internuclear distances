@@ -1,0 +1,36 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Define the energy equation based on the given formula
+def energy_formula(x, E0A, E0E, c1, aA, aE, c2, D, l1, l2):
+    term1 = 0.5 * (E0A + E0E + c1 * x + 0.5 * (aA + aE + c2) * x**2)
+    term2 = np.sqrt((D - c1 * x + 0.5 * (aA - aE - c2) * x**2)**2 + 4 * (l1 * x + 0.5 * l2 * x**2)**2)
+    return term1 - 0.5 * term2
+
+# Fixed values as per your input
+E0A = -1.4
+E0E = -1.22
+aA = 1.7
+aE = 1.9
+c1 = 0.15
+c2 = -1.6
+l1 = 0.2
+l2 = 0.25
+D = 1.0  # Example value for D, adjust if necessary
+
+# Generate internuclear distances (x values)
+x_values = np.linspace(0, 1, 100)  # From 0 to 1 with 100 points
+
+# Compute energy values based on the input
+energy_values = energy_formula(x_values, E0A, E0E, c1, aA, aE, c2, D, l1, l2)
+
+# Plot the energy values as a function of x
+plt.figure(figsize=(8, 6))
+plt.plot(x_values, energy_values, label="Energy Curve", color="red")
+plt.xlabel("Internuclear Distance (x)")
+plt.ylabel("Energy (E)")
+plt.title("Energy Curve Based on the Provided Parameters")
+plt.legend()
+plt.show()
+
